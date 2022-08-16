@@ -1,12 +1,11 @@
-package com.example.myapplication.view
+package com.example.myapplication.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.viewmodel.QuoteViewModel
+import com.example.myapplication.ui.viewmodel.QuoteViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,12 +23,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        quoteViewModel.onCreate()
+
         //Obtain a quote of my mutable live data and set this values in the textviews
         quoteViewModel.quoteModel.observe(this, Observer {
 
             binding.tvQuote.text = it.quote
             binding.tvAuthor.text = it.author
-
+            /*
             if (binding.tvAuthor.text.toString() == "El Pato"){
                 binding.chemms.visibility = android.view.View.INVISIBLE
                 binding.pato.visibility = android.view.View.VISIBLE
@@ -38,13 +39,13 @@ class MainActivity : AppCompatActivity() {
             else if (binding.tvAuthor.text.toString() == "El Chemms"){
                 binding.pato.visibility = android.view.View.INVISIBLE
                 binding.chemms.visibility = android.view.View.VISIBLE
-            }
+            }*/
 
         })
 
         //Put the random quote in the principal layout when this is clicked
         binding.viewContainer.setOnClickListener{
-            binding.tvPrincipal.visibility = android.view.View.INVISIBLE
+            //binding.tvPrincipal.visibility = android.view.View.INVISIBLE
             quoteViewModel.randomQuote()
         }
     }
